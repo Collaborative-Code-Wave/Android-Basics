@@ -17,6 +17,7 @@
     android:textColor="@color/orange"
     android:textColorHint="@color/blue"
     android:textSize="30sp"
+    android:maxLength="7"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
@@ -58,6 +59,7 @@
     app:layout_constraintStart_toEndOf="@+id/outputTextView" />
 
   <ImageButton
+    android:id="@+id/swapImageButton"
     android:layout_width="50dp"
     android:layout_height="50dp"
     android:src="@drawable/baseline_swap_vert_24"
