@@ -9,6 +9,7 @@ import java.lang.NumberFormatException
 
 class MainActivity : AppCompatActivity() {
   private lateinit var binding: ActivityMainBinding
+  private var cmToM = true
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     binding = ActivityMainBinding.inflate(layoutInflater)
@@ -22,8 +23,7 @@ class MainActivity : AppCompatActivity() {
     val swapImageButton = binding.swapImageButton
 
 
-    var inputNumber : Int = 0
-    var cmToM = true
+    var inputNumber = 0
 
     inputEditText.addTextChangedListener {text ->
       inputNumber = if (text.isNullOrEmpty()) {
@@ -51,5 +51,17 @@ class MainActivity : AppCompatActivity() {
         outputTextView.text = inputNumber.times(100).toString()
       }
     }
+  }
+
+  override fun onSaveInstanceState(outState: Bundle) {
+    outState.putBoolean("cmToM", cmToM)
+    super.onSaveInstanceState(outState)
+  }
+
+  override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+    cmToM = savedInstanceState.getBoolean("cmToM")
+    binding.inputUnitTextView.text = if (cmToM) "cm" else "m"
+    binding.outputUnitTextView.text = if (cmToM) "m" else "cm"
+    super.onRestoreInstanceState(savedInstanceState)
   }
 }
