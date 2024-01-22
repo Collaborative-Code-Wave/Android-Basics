@@ -84,7 +84,7 @@
     app:layout_constraintEnd_toEndOf="@+id/nameValueTextView" />
 
   <TextView
-    android:id="@+id/notificationTextView"
+    android:id="@+id/warningTextView"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:text="주의사항"
@@ -93,12 +93,12 @@
     app:layout_constraintTop_toBottomOf="@+id/phoneTextView" />
 
   <TextView
-    android:id="@+id/notificationTextViewValueTextView"
+    android:id="@+id/warningValueTextView"
     style="@style/Value"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:text="주의하라구"
-    app:layout_constraintBaseline_toBaselineOf="@+id/notificationTextView"
+    app:layout_constraintBaseline_toBaselineOf="@+id/warningTextView"
     app:layout_constraintEnd_toEndOf="@+id/nameValueTextView" />
 
   <androidx.constraintlayout.widget.Guideline
