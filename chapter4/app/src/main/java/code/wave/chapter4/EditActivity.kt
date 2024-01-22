@@ -2,10 +2,12 @@ package code.wave.chapter4
 
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.core.view.isVisible
 import code.wave.chapter4.databinding.ActivityEditBinding
 
@@ -33,5 +35,33 @@ class EditActivity : AppCompatActivity() {
 
     binding.warningEditTextView.isVisible = binding.warningCheckBox.isChecked
 
+    binding.saveButton.setOnClickListener {
+      saveData()
+      finish()
+    }
+
+  }
+
+  private fun saveData(){
+    // scope function
+    with(getSharedPreferences(USER_INFORMATION, Context.MODE_PRIVATE).edit()){
+      putString(NAME, binding.nameEditTextView.text.toString())
+      putString(BLOOD_TYPE, getBloodType())
+      putString(EMERGENCY_CONTACT, binding.phoneEditTextView.text.toString())
+      putString(BIRTHDATE, binding.birthdateValueTextView.text.toString())
+      putString(WARNING, getWarning())
+      apply()
+    }
+    Toast.makeText(this, "저장을 완료했습니다.", Toast.LENGTH_SHORT).show()
+  }
+
+  private fun getBloodType(): String{
+    val bloodAlphabet = binding.bloodTypeSpinner.selectedItem.toString()
+    val bloodSign = if (binding.bloodTypePlus.isChecked) "+" else "-"
+    return "$bloodSign$bloodAlphabet"
+  }
+
+  private fun getWarning(): String{
+    return if (binding.warningCheckBox.isChecked) binding.warningEditTextView.text.toString() else ""
   }
 }

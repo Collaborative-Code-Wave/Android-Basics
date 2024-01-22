@@ -33,7 +33,7 @@
     style="@style/Value"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
-    android:hint="010-0000-0000"
+    android:hint="01000000000"
     android:inputType="phone"
     app:layout_constraintBaseline_toBaselineOf="@+id/phoneTextView"
     app:layout_constraintEnd_toEndOf="@+id/nameEditTextView"
@@ -159,12 +159,12 @@
     app:layout_constraintGuide_percent="0.4" />
 
   <com.google.android.material.floatingactionbutton.FloatingActionButton
-    android:id="@+id/goInputActivityButton"
+    android:id="@+id/saveButton"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="36dp"
     android:clickable="true"
-    android:src="@drawable/baseline_edit_24"
+    android:src="@drawable/baseline_save_24"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent" />
