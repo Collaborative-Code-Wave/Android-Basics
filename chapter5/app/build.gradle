@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace 'code.wave.chapter5'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "code.wave.chapter5"
@@ -29,6 +29,9 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+    viewBinding {
+        enabled = true
     }
 }
 
