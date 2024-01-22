@@ -39,7 +39,6 @@ class EditActivity : AppCompatActivity() {
       saveData()
       finish()
     }
-
   }
 
   private fun saveData(){
