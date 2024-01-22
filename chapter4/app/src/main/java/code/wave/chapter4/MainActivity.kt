@@ -2,6 +2,7 @@ package code.wave.chapter4
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -23,6 +24,16 @@ class MainActivity : AppCompatActivity() {
     binding.deleteButton.setOnClickListener {
       deleteDate()
     }
+
+    binding.emergencyContactLayer.setOnClickListener {
+      with(Intent(Intent.ACTION_VIEW)){
+        val phoneNumber = binding.phoneValueTextView.text.toString()
+          .replace("-","")
+        data = Uri.parse("tel: $phoneNumber")
+        startActivity(this)
+      }
+    }
+
   }
 
   override fun onResume() {
