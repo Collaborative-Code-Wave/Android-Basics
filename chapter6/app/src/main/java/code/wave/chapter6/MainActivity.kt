@@ -1,5 +1,7 @@
 package code.wave.chapter6
 
+import android.media.AudioManager
+import android.media.ToneGenerator
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Gravity
@@ -62,6 +64,7 @@ class MainActivity : AppCompatActivity() {
   }
 
   private fun lap() {
+    if (currentDeciSecond == 0) return
     val container = binding.lapContainerLinearLayout
     TextView(this).apply {
       textSize = 20f
@@ -94,6 +97,7 @@ class MainActivity : AppCompatActivity() {
 
     binding.countdownGroup.isVisible = true
     initCountdownViews()
+    binding.lapContainerLinearLayout.removeAllViews()
   }
 
   private fun start() {
@@ -117,6 +121,12 @@ class MainActivity : AppCompatActivity() {
           binding.countdownTextView.text = String.format("%02d", seconds)
           binding.countdownProgressBar.progress = progress.toInt()
         }
+      }
+
+      if (currentDeciSecond == 0 && currentCountdownDeciSecond < 31 && currentCountdownDeciSecond % 10 == 0){
+        val toneType = if(currentCountdownDeciSecond == 0) ToneGenerator.TONE_CDMA_HIGH_L else ToneGenerator.TONE_CDMA_ANSWER
+        ToneGenerator(AudioManager.STREAM_ALARM, ToneGenerator.MAX_VOLUME)
+          .startTone(toneType, 100)
       }
     }
   }
