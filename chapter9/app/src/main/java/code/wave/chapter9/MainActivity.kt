@@ -1,9 +1,13 @@
 package code.wave.chapter9
 
+import android.Manifest
 import android.content.Intent
-import android.media.MediaPlayer
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AlertDialog
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import code.wave.chapter9.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
