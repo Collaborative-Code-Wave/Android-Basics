@@ -2,8 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools">
 
-  <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-
   <application
     android:allowBackup="true"
     android:dataExtractionRules="@xml/data_extraction_rules"
@@ -24,10 +22,17 @@
       </intent-filter>
     </activity>
 
+    <receiver
+      android:enabled="true"
+      android:exported="true"
+      android:name=".LowBatteryReceiver"></receiver>
+
     <service
       android:enabled="true"
       android:exported="false"
-      android:name=".MediaPlayService"></service>
+      android:name=".MediaPlayService" />
   </application>
+
+  <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
 </manifest>
