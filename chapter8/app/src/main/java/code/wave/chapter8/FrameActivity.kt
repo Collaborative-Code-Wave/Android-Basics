@@ -4,6 +4,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import code.wave.chapter8.databinding.ActivityFrameBinding
+import com.google.android.material.tabs.TabLayoutMediator
 
 class FrameActivity : AppCompatActivity() {
 
@@ -19,5 +20,13 @@ class FrameActivity : AppCompatActivity() {
     val frameAdapter = FrameAdapter(images)
 
     binding.viewPager.adapter = frameAdapter
+
+    TabLayoutMediator(
+      binding.tabLayout,
+      binding.viewPager,
+    ){
+      tab, position ->
+      binding.viewPager.currentItem = tab.position
+    }.attach()
   }
 }
