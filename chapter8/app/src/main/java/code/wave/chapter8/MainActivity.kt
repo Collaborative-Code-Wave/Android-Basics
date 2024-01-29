@@ -1,6 +1,7 @@
 package code.wave.chapter8
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
@@ -34,7 +35,19 @@ class MainActivity : AppCompatActivity() {
     binding.loadImageButton.setOnClickListener {
       checkPermission()
     }
+
+    binding.navigateFrameActivityButton.setOnClickListener {
+      navigateToFrameActivity()
+    }
+
     initRecyclerView()
+  }
+
+  private fun navigateToFrameActivity(){
+    val images = imageAdapter.currentList.filterIsInstance<ImageItems.Image>().map { it.uri.toString() }.toTypedArray()
+    val intent = Intent(this, FrameActivity::class.java)
+      .putExtra("images", images)
+    startActivity(intent)
   }
 
   private fun initRecyclerView() {
