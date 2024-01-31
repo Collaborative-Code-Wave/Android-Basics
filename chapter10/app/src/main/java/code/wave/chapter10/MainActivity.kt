@@ -7,7 +7,7 @@ import android.widget.TextView
 import code.wave.chapter10.databinding.ActivityMainBinding
 import com.google.android.material.tabs.TabLayoutMediator
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), OnTabLayoutNameChanged {
 
   private lateinit var binding: ActivityMainBinding
 
@@ -20,12 +20,7 @@ class MainActivity : AppCompatActivity() {
 
     TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
       run {
-        val textView = TextView(this@MainActivity)
-        textView.text = "position $position"
-        textView.gravity = Gravity.CENTER
-
-        tab.customView = textView
-//        tab.text = "position $position"
+        tab.text = "position $position"
       }
     }.attach()
   }
@@ -37,6 +32,12 @@ class MainActivity : AppCompatActivity() {
       current.goBack()
     } else {
       super.onBackPressed()
+    }
+  }
+
+  override fun nameChanged(position: Int, name: String) {
+    binding.tabLayout.getTabAt(position)?.let {
+      it.text = name
     }
   }
 

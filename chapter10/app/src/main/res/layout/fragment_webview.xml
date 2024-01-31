@@ -24,6 +24,7 @@
 
   <Button
     android:id="@+id/backToLastButton"
+    style="@style/Widget.AppCompat.Button"
     android:layout_width="0dp"
     android:layout_height="50dp"
     android:text="@string/back_to_last"
@@ -33,6 +34,7 @@
 
   <Button
     android:id="@+id/changeTabNameButton"
+    style="@style/Widget.AppCompat.Button"
     android:layout_width="0dp"
     android:layout_height="50dp"
     android:text="@string/change_tab_name"
