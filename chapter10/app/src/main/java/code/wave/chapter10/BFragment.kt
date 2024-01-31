@@ -11,7 +11,7 @@ class BFragment: Fragment() {
 
   private lateinit var binding: FragmentSecondBinding
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
     binding = FragmentSecondBinding.inflate(inflater)
     return binding.root
   }

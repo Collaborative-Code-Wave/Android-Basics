@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
 import code.wave.chapter10.databinding.FragmentWebviewBinding
 
@@ -13,7 +12,7 @@ class WebViewFragment: Fragment() {
 
   private lateinit var binding: FragmentWebviewBinding
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
     binding = FragmentWebviewBinding.inflate(inflater)
     return binding.root
   }
@@ -21,9 +20,17 @@ class WebViewFragment: Fragment() {
   @SuppressLint("SetJavaScriptEnabled")
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     binding.webView.apply {
-      webViewClient = WebViewClient()
+      webViewClient = WebtoonWebViewClient(binding)
       settings.javaScriptEnabled = true
-      loadUrl("https://google.com")
+      loadUrl("https://comic.naver.com/")
     }
+  }
+
+  fun canGoBack(): Boolean {
+    return binding.webView.canGoBack()
+  }
+
+  fun goBack() {
+    binding.webView.goBack()
   }
 }

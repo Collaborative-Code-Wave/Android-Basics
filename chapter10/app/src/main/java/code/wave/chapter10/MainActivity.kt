@@ -26,6 +26,20 @@ class MainActivity : AppCompatActivity() {
         commit()
       }
     }
-
   }
+
+  override fun onBackPressed() {
+    val current = try {
+      supportFragmentManager.fragments.first { fragment -> fragment is WebViewFragment } as WebViewFragment
+    } catch (e: NoSuchElementException) {
+      null
+    }
+    if (current != null && current.canGoBack()) {
+      current.goBack()
+    } else {
+      super.onBackPressed()
+    }
+  }
+
+
 }
