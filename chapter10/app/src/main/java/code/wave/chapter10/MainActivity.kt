@@ -2,7 +2,10 @@ package code.wave.chapter10
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Gravity
+import android.widget.TextView
 import code.wave.chapter10.databinding.ActivityMainBinding
+import com.google.android.material.tabs.TabLayoutMediator
 
 class MainActivity : AppCompatActivity() {
 
@@ -13,28 +16,24 @@ class MainActivity : AppCompatActivity() {
     binding = ActivityMainBinding.inflate(layoutInflater)
     setContentView(binding.root)
 
-    binding.button1.setOnClickListener {
-      supportFragmentManager.beginTransaction().apply {
-        replace(R.id.fragmentContainer, WebViewFragment())
-        commit()
-      }
-    }
+    binding.viewPager.adapter= ViewPagerAdapter(this)
 
-    binding.button2.setOnClickListener {
-      supportFragmentManager.beginTransaction().apply {
-        replace(R.id.fragmentContainer, BFragment())
-        commit()
+    TabLayoutMediator(binding.tabLayout, binding.viewPager){ tab, position ->
+      run {
+        val textView = TextView(this@MainActivity)
+        textView.text = "position $position"
+        textView.gravity = Gravity.CENTER
+
+        tab.customView = textView
+//        tab.text = "position $position"
       }
-    }
+    }.attach()
   }
 
+  @Deprecated("Deprecated in Java")
   override fun onBackPressed() {
-    val current = try {
-      supportFragmentManager.fragments.first { fragment -> fragment is WebViewFragment } as WebViewFragment
-    } catch (e: NoSuchElementException) {
-      null
-    }
-    if (current != null && current.canGoBack()) {
+    val current = supportFragmentManager.fragments[binding.viewPager.currentItem]
+    if (current is WebViewFragment && current.canGoBack()) {
       current.goBack()
     } else {
       super.onBackPressed()
