@@ -16,9 +16,9 @@ class MainActivity : AppCompatActivity() {
     binding = ActivityMainBinding.inflate(layoutInflater)
     setContentView(binding.root)
 
-    binding.viewPager.adapter= ViewPagerAdapter(this)
+    binding.viewPager.adapter = ViewPagerAdapter(this)
 
-    TabLayoutMediator(binding.tabLayout, binding.viewPager){ tab, position ->
+    TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
       run {
         val textView = TextView(this@MainActivity)
         textView.text = "position $position"
