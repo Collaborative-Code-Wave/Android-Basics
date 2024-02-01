@@ -1,19 +1,20 @@
 package code.wave.chapter11
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import code.wave.chapter11.databinding.ActivityMainBinding
+import com.google.gson.Gson
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
 import java.io.IOException
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -49,9 +50,12 @@ class MainActivity : AppCompatActivity() {
       }
       override fun onResponse(call: Call, response: Response) {
         if (response.isSuccessful){
-          val body = response.body?.string()
+          val responseBody = response.body?.string()
+
+          val message = Gson().fromJson(responseBody, Message::class.java)
+
           runOnUiThread {
-            binding.informationTextView.text = body
+            binding.informationTextView.text = message.message
             binding.informationTextView.isVisible = true
             binding.serverHostEditText.isVisible = false
             binding.confirmButton.isVisible = false
