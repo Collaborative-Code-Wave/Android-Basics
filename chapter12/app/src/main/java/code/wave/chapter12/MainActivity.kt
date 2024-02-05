@@ -3,6 +3,8 @@ package code.wave.chapter12
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.recyclerview.widget.LinearLayoutManager
+import code.wave.chapter12.adapter.UserAdapter
 import code.wave.chapter12.databinding.ActivityMainBinding
 import code.wave.chapter12.model.Repo
 import code.wave.chapter12.model.UserDto
@@ -34,9 +36,16 @@ class MainActivity : AppCompatActivity() {
       }
     })
 
+    val userAdapter = UserAdapter()
+
+    binding.userRecyclerView.apply {
+      layoutManager = LinearLayoutManager(context)
+      adapter = userAdapter
+    }
+
     githubService.searchUsers("qued").enqueue(object : Callback<UserDto>{
       override fun onResponse(call: Call<UserDto>, response: Response<UserDto>) {
-        Log.e("MainActivity", "Search User: ${ response.body().toString() }")
+        userAdapter.submitList(response.body()?.items)
       }
       override fun onFailure(call: Call<UserDto>, t: Throwable) {
       }
