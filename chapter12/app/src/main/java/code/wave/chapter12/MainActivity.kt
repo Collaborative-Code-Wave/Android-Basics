@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import code.wave.chapter12.databinding.ActivityMainBinding
 import code.wave.chapter12.model.Repo
+import code.wave.chapter12.model.UserDto
 import code.wave.chapter12.network.GithubService
 import retrofit2.Call
 import retrofit2.Callback
@@ -30,13 +31,18 @@ class MainActivity : AppCompatActivity() {
     val githubService = retrofit.create(GithubService::class.java)
     githubService.listRepos("quedevel").enqueue(object : Callback<List<Repo>>{
       override fun onResponse(call: Call<List<Repo>>, response: Response<List<Repo>>) {
-        Log.e("MainActivity", response.body().toString())
+        Log.e("MainActivity", "List repos: ${ response.body().toString() }")
       }
-
       override fun onFailure(call: Call<List<Repo>>, t: Throwable) {
-        TODO("Not yet implemented")
       }
+    })
 
+    githubService.searchUsers("qued").enqueue(object : Callback<UserDto>{
+      override fun onResponse(call: Call<UserDto>, response: Response<UserDto>) {
+        Log.e("MainActivity", "Search User: ${ response.body().toString() }")
+      }
+      override fun onFailure(call: Call<UserDto>, t: Throwable) {
+      }
     })
   }
 }
