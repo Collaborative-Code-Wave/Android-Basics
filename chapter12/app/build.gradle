@@ -3,6 +3,9 @@ plugins {
     id 'org.jetbrains.kotlin.android'
 }
 
+def localProperties = new Properties()
+localProperties.load(new FileInputStream(rootProject.file("local.properties")))
+
 android {
     namespace 'code.wave.chapter12'
     compileSdk 34
@@ -13,8 +16,12 @@ android {
         targetSdk 33
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField("String", "github_token", "" + localProperties['github_token'] + "")
+    }
+
+    buildFeatures {
+        buildConfig = true
     }
 
     buildTypes {
