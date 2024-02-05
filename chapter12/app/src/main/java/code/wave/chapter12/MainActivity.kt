@@ -39,13 +39,7 @@ class MainActivity : AppCompatActivity() {
     binding = ActivityMainBinding.inflate(layoutInflater)
     setContentView(binding.root)
 
-//    githubService.listRepos("quedevel").enqueue(object : Callback<List<Repo>>{
-//      override fun onResponse(call: Call<List<Repo>>, response: Response<List<Repo>>) {
-//        Log.e("MainActivity", "List repos: ${ response.body().toString() }")
-//      }
-//      override fun onFailure(call: Call<List<Repo>>, t: Throwable) {
-//      }
-//    })
+
 
     userAdapter = UserAdapter {
       val intent = Intent(this@MainActivity, RepoActivity::class.java)
