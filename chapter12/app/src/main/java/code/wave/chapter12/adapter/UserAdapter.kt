@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import code.wave.chapter12.databinding.ItemUserBinding
 import code.wave.chapter12.model.User
 
-class UserAdapter: ListAdapter<User, UserAdapter.UserViewHolder>(diffUtil) {
+class UserAdapter(
+  val onClick: (User) -> Unit
+): ListAdapter<User, UserAdapter.UserViewHolder>(diffUtil) {
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
     return UserViewHolder(
@@ -27,6 +29,9 @@ class UserAdapter: ListAdapter<User, UserAdapter.UserViewHolder>(diffUtil) {
   inner class UserViewHolder(private val binding: ItemUserBinding): RecyclerView.ViewHolder(binding.root) {
     fun bind(item: User){
       binding.usernameTextView.text = item.username
+      binding.root.setOnClickListener {
+        onClick(item)
+      }
     }
   }
 
