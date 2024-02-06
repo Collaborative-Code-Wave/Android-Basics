@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import code.wave.chapter12.databinding.ItemRepoBinding
 import code.wave.chapter12.model.Repo
 
-class RepoAdapter: ListAdapter<Repo, RepoAdapter.RepoViewHolder>(diffUtil) {
+class RepoAdapter(
+  private val onClick: (Repo) -> Unit,
+): ListAdapter<Repo, RepoAdapter.RepoViewHolder>(diffUtil) {
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepoViewHolder {
     return RepoViewHolder(
@@ -30,6 +32,9 @@ class RepoAdapter: ListAdapter<Repo, RepoAdapter.RepoViewHolder>(diffUtil) {
       binding.descriptionTextView.text = item.description
       binding.forkCountTextView.text = item.forkCount.toString()
       binding.startCountTextView.text = item.starCount.toString()
+      binding.root.setOnClickListener {
+        onClick(item)
+      }
     }
   }
 
