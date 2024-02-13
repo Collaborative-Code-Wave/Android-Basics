@@ -6,9 +6,70 @@
   android:layout_height="match_parent"
   tools:context=".MainActivity">
 
+  <HorizontalScrollView
+    android:id="@+id/chipGroupScrollView"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.chip.ChipGroup
+      android:id="@+id/chipGroup"
+      android:paddingHorizontal="10dp"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content">
+
+      <com.google.android.material.chip.Chip
+        android:id="@+id/feedChip"
+        style="@style/Widget.MaterialComponents.Chip.Choice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:text="@string/feed" />
+
+      <com.google.android.material.chip.Chip
+        android:id="@+id/politicsChip"
+        style="@style/Widget.MaterialComponents.Chip.Choice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/politics" />
+
+      <com.google.android.material.chip.Chip
+        android:id="@+id/economyChip"
+        style="@style/Widget.MaterialComponents.Chip.Choice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/economy" />
+
+      <com.google.android.material.chip.Chip
+        android:id="@+id/societyChip"
+        style="@style/Widget.MaterialComponents.Chip.Choice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/society" />
+
+      <com.google.android.material.chip.Chip
+        android:id="@+id/itChip"
+        style="@style/Widget.MaterialComponents.Chip.Choice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/it" />
+
+      <com.google.android.material.chip.Chip
+        android:id="@+id/sportChip"
+        style="@style/Widget.MaterialComponents.Chip.Choice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sport" />
+
+    </com.google.android.material.chip.ChipGroup>
+
+  </HorizontalScrollView>
+
   <androidx.recyclerview.widget.RecyclerView
     android:id="@+id/newsRecyclerView"
-    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/chipGroupScrollView"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
