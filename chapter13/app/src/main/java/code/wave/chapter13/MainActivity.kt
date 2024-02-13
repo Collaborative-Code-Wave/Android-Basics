@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import code.wave.chapter13.adapter.NewsAdapter
 import code.wave.chapter13.databinding.ActivityMainBinding
@@ -105,9 +106,8 @@ class MainActivity : AppCompatActivity() {
     this.enqueue(object : Callback<NewsRss>{
       override fun onResponse(call: Call<NewsRss>, response: Response<NewsRss>) {
         val list = response.body()?.channel?.items.orEmpty().transform()
-
         newsAdapter.submitList(list)
-
+        binding.notFoundView.isVisible = list.isEmpty()
         list.forEachIndexed { index, newsModel ->
           Thread {
             try {
