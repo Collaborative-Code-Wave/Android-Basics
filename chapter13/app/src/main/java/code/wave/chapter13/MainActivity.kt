@@ -31,7 +31,8 @@ class MainActivity : AppCompatActivity() {
     setContentView(binding.root)
 
     newsAdapter = NewsAdapter {
-      val intent = Intent(Intent.ACTION_VIEW, Uri.parse(it.link))
+      val intent = Intent(this, WebViewActivity::class.java)
+      intent.putExtra("url", it.link)
       startActivity(intent)
     }
 
@@ -77,7 +78,7 @@ class MainActivity : AppCompatActivity() {
       newsService.sportNews().submitList()
     }
 
-    binding.searchEditText.setOnEditorActionListener { v, actionId, event ->
+    binding.searchEditText.setOnEditorActionListener { v, actionId, _ ->
       if (actionId == EditorInfo.IME_ACTION_SEARCH){
         binding.chipGroup.clearCheck()
 
