@@ -6,11 +6,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import code.wave.chapter13.databinding.ItemNewsBinding
-import code.wave.chapter13.model.NewsItem
+import code.wave.chapter13.model.NewsModel
+import com.bumptech.glide.Glide
 
 class NewsAdapter(
-  private val onClick: (NewsItem) -> (Unit)
-): ListAdapter<NewsItem, NewsAdapter.ViewHolder>(diffUtil) {
+  private val onClick: (NewsModel) -> (Unit)
+): ListAdapter<NewsModel, NewsAdapter.ViewHolder>(diffUtil) {
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
     return ViewHolder(
@@ -27,20 +28,25 @@ class NewsAdapter(
   }
 
   companion object {
-    val diffUtil = object: DiffUtil.ItemCallback<NewsItem>(){
-      override fun areItemsTheSame(oldItem: NewsItem, newItem: NewsItem): Boolean {
+    val diffUtil = object: DiffUtil.ItemCallback<NewsModel>(){
+      override fun areItemsTheSame(oldItem: NewsModel, newItem: NewsModel): Boolean {
         return oldItem === newItem
       }
 
-      override fun areContentsTheSame(oldItem: NewsItem, newItem: NewsItem): Boolean {
+      override fun areContentsTheSame(oldItem: NewsModel, newItem: NewsModel): Boolean {
         return oldItem == newItem
       }
 
     }
   }
   inner class ViewHolder(private val binding: ItemNewsBinding): RecyclerView.ViewHolder(binding.root) {
-    fun bind(item: NewsItem){
+    fun bind(item: NewsModel){
       binding.titleTextView.text = item.title
+
+      Glide.with(binding.thumbnailImageView)
+        .load(item.imageUrl)
+        .into(binding.thumbnailImageView)
+
       binding.root.setOnClickListener {
         onClick(item)
       }

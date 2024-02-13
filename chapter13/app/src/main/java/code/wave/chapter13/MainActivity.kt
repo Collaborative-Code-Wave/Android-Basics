@@ -9,8 +9,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import code.wave.chapter13.adapter.NewsAdapter
 import code.wave.chapter13.databinding.ActivityMainBinding
 import code.wave.chapter13.model.NewsRss
+import code.wave.chapter13.model.transform
 import code.wave.chapter13.network.ApiClient
 import code.wave.chapter13.service.NewsService
+import org.jsoup.Jsoup
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -42,8 +44,23 @@ class MainActivity : AppCompatActivity() {
   private fun requestMainFeed(){
     newsService.mainFeed().enqueue(object : Callback<NewsRss>{
       override fun onResponse(call: Call<NewsRss>, response: Response<NewsRss>) {
-        Log.e("MainActivity", "${response.body()?.channel?.items}")
-        newsAdapter.submitList(response.body()?.channel?.items.orEmpty())
+        val list = response.body()?.channel?.items.orEmpty().transform()
+
+        newsAdapter.submitList(list)
+
+        list.forEachIndexed { index, newsModel ->
+          Thread {
+            val jsoup = Jsoup.connect(newsModel.link).get()
+            val elements = jsoup.select("meta[property^=og:]")
+            val ogImageNode = elements.find { node ->
+              node.attr("property") == "og:image"
+            }
+            newsModel.imageUrl = ogImageNode?.attr("content")
+            runOnUiThread {
+              newsAdapter.notifyItemChanged(index)
+            }
+          }.start()
+        }
       }
       override fun onFailure(call: Call<NewsRss>, t: Throwable) {
         t.printStackTrace()
