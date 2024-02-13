@@ -4,7 +4,6 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import code.wave.chapter13.adapter.NewsAdapter
 import code.wave.chapter13.databinding.ActivityMainBinding
@@ -16,7 +15,6 @@ import org.jsoup.Jsoup
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.create
 
 class MainActivity : AppCompatActivity() {
   private lateinit var binding: ActivityMainBinding
@@ -55,9 +53,9 @@ class MainActivity : AppCompatActivity() {
             val anchor = elements.first()
 
             val link = anchor?.attr("href")
-            val jsoupNews = Jsoup.connect(link).get()
-            val ogMetaElements = jsoupNews.select("meta[property^=og:]")
-            val ogImageNode = ogMetaElements.find { node ->
+            val jsoupNews = link?.let { Jsoup.connect(it).get() }
+            val ogMetaElements = jsoupNews?.select("meta[property^=og:]")
+            val ogImageNode = ogMetaElements?.find { node ->
               node.attr("property") == "og:image"
             }
 
