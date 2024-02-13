@@ -51,10 +51,16 @@ class MainActivity : AppCompatActivity() {
         list.forEachIndexed { index, newsModel ->
           Thread {
             val jsoup = Jsoup.connect(newsModel.link).get()
-            val elements = jsoup.select("meta[property^=og:]")
-            val ogImageNode = elements.find { node ->
+            val elements = jsoup.select("a[jsname=tljFtd]")
+            val anchor = elements.first()
+
+            val link = anchor?.attr("href")
+            val jsoupNews = Jsoup.connect(link).get()
+            val ogMetaElements = jsoupNews.select("meta[property^=og:]")
+            val ogImageNode = ogMetaElements.find { node ->
               node.attr("property") == "og:image"
             }
+
             newsModel.imageUrl = ogImageNode?.attr("content")
             runOnUiThread {
               newsAdapter.notifyItemChanged(index)
