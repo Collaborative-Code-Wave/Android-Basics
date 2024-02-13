@@ -8,17 +8,17 @@
 
   <HorizontalScrollView
     android:id="@+id/chipGroupScrollView"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
     android:layout_width="0dp"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
 
     <com.google.android.material.chip.ChipGroup
       android:id="@+id/chipGroup"
-      android:paddingHorizontal="10dp"
       android:layout_width="wrap_content"
-      android:layout_height="wrap_content">
+      android:layout_height="wrap_content"
+      android:paddingHorizontal="10dp">
 
       <com.google.android.material.chip.Chip
         android:id="@+id/feedChip"
@@ -64,17 +64,39 @@
         android:text="@string/sport" />
 
     </com.google.android.material.chip.ChipGroup>
-
   </HorizontalScrollView>
 
   <androidx.recyclerview.widget.RecyclerView
     android:id="@+id/newsRecyclerView"
-    app:layout_constraintTop_toBottomOf="@+id/chipGroupScrollView"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    tools:listitem="@layout/item_news"
     android:layout_width="0dp"
-    android:layout_height="0dp" />
+    android:layout_height="0dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
+    tools:listitem="@layout/item_news" />
+
+
+  <com.google.android.material.textfield.TextInputLayout
+    android:id="@+id/textInputLayout"
+    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="10dp"
+    app:endIconMode="clear_text"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/chipGroupScrollView">
+
+    <com.google.android.material.textfield.TextInputEditText
+      android:id="@+id/searchEditText"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:imeOptions="actionSearch"
+      android:inputType="text"
+      android:maxLines="1"
+      tools:text="테스트" />
+
+  </com.google.android.material.textfield.TextInputLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
